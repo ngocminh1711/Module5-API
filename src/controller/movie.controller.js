@@ -1,12 +1,11 @@
 import Movie from "../model/schemas/movies.schemas.js";
-import mongoose, {Schema} from "mongoose";
+import mongoose from "mongoose";
 import Genre from "../model/schemas/genre.schema.js";
 
 
 class MovieController {
     async add(req, res) {
         try {
-            console.log(req.body.genre)
             const data = {
                 backdrop_path: req.body.backdrop_path,
                 detail_image: req.body.detail_image,
@@ -72,7 +71,7 @@ class MovieController {
         } catch (err) {
             return res.json({
                 status: 'error',
-                message: 'Error getting genres'
+                message:  'Error getting genres'
 
             })
         }
@@ -82,16 +81,19 @@ class MovieController {
     async getMovieByGenre (req, res) {
         try {
             let movie_name = req.params.name
-            if (!mongoose.Types.ObjectId.isValid(movie_id_name)) {
-                return res.status(404).send({message: 'Movie_id not found'})
+            if (!movie_name) {
+                return res.status(404).send({message: 'Movie_name not found'})
             }
-            let genreFind = await Genre.find({ name: movie_name})
-            let movie = await Movie.find({genre: genreFind}).populate('genre')
-            return res.status(200).send({
-                status: 'success',
-                message: 'Get movie successfully',
-                movie: movie
-            })
+            else {
+                let genreFind = await Genre.find({ name: movie_name})
+                let movie = await Movie.find({genre: genreFind}).populate('genre')
+                return res.status(200).send({
+                    status: 'success',
+                    message: 'Get movie successfully',
+                    movie: movie
+                })
+            }
+
         } catch (err) {
             return res.json({
                 status: 'error',

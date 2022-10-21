@@ -3,6 +3,7 @@ import  DBconnect  from "./src/model/DBconnect.js";
 import movieRouter from "./src/routers/movie.router.js";
 import cors from "cors"
 import bodyParser from "express";
+import userRouter from "./src/routers/user.router.js";
 
 const app = express();
 app.use(cors());
@@ -15,7 +16,7 @@ app.use(bodyParser.json());
 
 
 app.use('/api', movieRouter)
-
+app.use('/api/user', userRouter )
 
 
 
