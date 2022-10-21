@@ -8,26 +8,26 @@ class MovieController {
         try {
             console.log(req.body.genre)
             const data = {
-                // backdrop_path: req.body.backdrop_path,
-                // detail_image: req.body.detail_image,
+                backdrop_path: req.body.backdrop_path,
+                detail_image: req.body.detail_image,
                 original_language: req.body.original_language,
                 original_title: req.body.original_title,
                 overview: req.body.overview,
                 release_date: req.body.release_date,
                 genre: req.body.genre,
-                // popularity: req.body.popularity,
-                // markIMDB: req.body.markIMDB,
+                popularity: req.body.popularity,
+                markIMDB: req.body.markIMDB,
                 videoLink: req.body.videoLink,
-                // trailer: req.body.trailer,
+                trailer: req.body.trailer,
             }
 
             let movie = new Movie(data)
             await movie.save();
-            //
-            // return res.status(200).json({
-            //     status: 'success',
-            //     message: 'Movie saved successfully'
-            // })
+
+            return res.status(200).json({
+                status: 'success',
+                message: 'Movie saved successfully'
+            })
 
         }
         catch (err) {
