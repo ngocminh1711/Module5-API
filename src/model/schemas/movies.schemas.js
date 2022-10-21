@@ -3,6 +3,7 @@ import mongoose , { Schema, model } from "mongoose";
 const movieSchema = new Schema(
     {
         backdrop_path: String,
+        detail_image: String,
         original_language: String,
         original_title: String,
         overview: String,

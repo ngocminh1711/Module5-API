@@ -8,9 +8,16 @@ class MovieController {
         try {
             let data = {
                 backdrop_path: req.body.backdrop_path,
+                detail_image: req.body.detail_image,
                 original_language: req.body.original_language,
                 original_title: req.body.original_title,
-                video: req.body.videoLink
+                overview: req.body.overview,
+                release_date: req.body.release_date,
+                genre: req.body.genre,
+                popularity: req.body.popularity,
+                markIMDB: req.body.markIMDB,
+                video: req.body.video,
+                trailer: req.body.trailer,
             }
 
             let movie = new Movie(data)
@@ -48,6 +55,8 @@ class MovieController {
         }
     }
 
+
+
     async getGenre(req, res) {
         try {
             let genres = await Genre.find()
@@ -68,6 +77,22 @@ class MovieController {
 
     }
 
+    async getMovieByGenre (req, res) {
+        try {
+            let movie_name = req.params.name
+            if (!mongoose.Types.ObjectId.isValid(movie_id_name)) {
+                return res.status(404).send({message: 'Movie_id not found'})
+            }
+            let genreFind = await Genre.find({ name: movie_name})
+            let movie = await Movie.find({genre: genreFind}).populate('genre')
+            return res.status(200).send({
+                status: 'success',
+                message: 'Get movie successfully',
+                movie: movie
+            })
+        } catch (err) {
+        }
+    }
 
     async getMovieById(req, res) {
         try {
