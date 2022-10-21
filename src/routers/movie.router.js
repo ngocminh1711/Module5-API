@@ -26,6 +26,10 @@ movieRouter.put('/movie/:id', async (req, res) => {
     movieController.updateMovie(req, res).catch(() => res.status(500).json('Server error'))
 })
 
+movieRouter.get('/genre', async (req, res) => {
+    movieController.getGenre(req, res).catch(() => res.status(500   ).json('Server error'))
+})
+
 
 
 

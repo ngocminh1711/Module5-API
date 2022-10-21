@@ -1,6 +1,6 @@
 import Movie from "../model/schemas/movies.schemas.js";
 import mongoose, {Schema} from "mongoose";
-
+import Genre from "../model/schemas/genre.schema.js";
 
 
 class MovieController {
@@ -49,9 +49,25 @@ class MovieController {
     }
 
     async getGenre(req, res) {
+        try {
+            let genres = await Genre.find()
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Headers", "X-Requested-With");
+            return res.status(200).send({
+                status: 'success',
+                message: 'Get genres successfully',
+                genres: genres
+            })
+        } catch (err) {
+            return res.json({
+                status: 'error',
+                message: 'Error getting genres'
 
+            })
+        }
 
     }
+
 
     async getMovieById(req, res) {
         try {
@@ -83,7 +99,7 @@ class MovieController {
             }
             let movie = await Movie.findOneAndDelete({_id: movie_id})
             if (movie) {
-               ` // res.header("Access-Control-Allow-Origin", "*");
+                ` // res.header("Access-Control-Allow-Origin", "*");
                 // res.header("Access-Control-Allow-Headers", "X-Requested-With");`
                 return res.status(200).json({
                     status: 'success',
@@ -121,8 +137,7 @@ class MovieController {
                     status: 'success',
                     message: 'Update movie successfully'
                 })
-            }
-            else {
+            } else {
                 res.status(404).json({message: "Movie not found"})
             }
         } catch (err) {
@@ -132,5 +147,8 @@ class MovieController {
             })
         }
     }
+
+
 }
+
 export default MovieController;
