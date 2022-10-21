@@ -2,7 +2,6 @@ import mongoose , { Schema, model } from "mongoose";
 
 const movieSchema = new Schema(
     {
-        id: Number,
         backdrop_path: String,
         original_language: String,
         original_title: String,

@@ -1,6 +1,8 @@
 import Movie from "../model/schemas/movies.schemas.js";
 import mongoose, {Schema} from "mongoose";
 
+
+
 class MovieController {
     async add(req, res) {
         try {
@@ -8,10 +10,13 @@ class MovieController {
                 backdrop_path: req.body.backdrop_path,
                 original_language: req.body.original_language,
                 original_title: req.body.original_title,
+                video: req.body.videoLink
             }
 
             let movie = new Movie(data)
             await movie.save();
+            // res.header("Access-Control-Allow-Origin", "*");
+            // res.header("Access-Control-Allow-Headers", "X-Requested-With");
             return res.status(200).json({
                 status: 'success',
                 message: 'Movie saved successfully'
@@ -28,8 +33,8 @@ class MovieController {
     async getMovies(req, res) {
         try {
             let movies = await Movie.find()
-            // res.header("Access-Control-Allow-Origin", "*");
-            // res.header("Access-Control-Allow-Headers", "X-Requested-With");
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Headers", "X-Requested-With");
             return res.status(200).send({
                 status: 'success',
                 message: 'Get movies successfully',
@@ -43,6 +48,11 @@ class MovieController {
         }
     }
 
+    async getGenre(req, res) {
+
+
+    }
+
     async getMovieById(req, res) {
         try {
             let movie_id = req.params.id;
@@ -50,6 +60,8 @@ class MovieController {
                 return res.status(404).send({message: 'Movie_id not found'})
             }
             let movie = await Movie.findOne({_id: movie_id})
+            // res.header("Access-Control-Allow-Origin", "*");
+            // res.header("Access-Control-Allow-Headers", "X-Requested-With");
             return res.status(200).send({
                 status: 'success',
                 message: 'Get movie by Id successfully',
@@ -71,6 +83,8 @@ class MovieController {
             }
             let movie = await Movie.findOneAndDelete({_id: movie_id})
             if (movie) {
+               ` // res.header("Access-Control-Allow-Origin", "*");
+                // res.header("Access-Control-Allow-Headers", "X-Requested-With");`
                 return res.status(200).json({
                     status: 'success',
                     message: 'Movie deleted successfully'

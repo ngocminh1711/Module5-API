@@ -3,8 +3,8 @@ import express from "express";
 import MovieController from "../controller/movie.controller.js";
 import req from "express/lib/request.js";
 import res from "express/lib/response.js";
-
-
+import multer from 'multer' ;
+const upload = multer()
 const movieRouter = express.Router();
 const movieController = new MovieController()
 
@@ -16,7 +16,7 @@ movieRouter.get('/movie/:id', async function(req, res) {
    movieController.getMovieById(req, res).catch(() => res.status(500).json('Server error') )
 })
 
-movieRouter.post('/movie', async (req, res) => {
+movieRouter.post('/movie',upload.none(), async (req, res) => {
      movieController.add(req, res).catch(() => res.status(500).json('Server error'))
     })
 movieRouter.delete('/movie/:id', async (req, res) => {

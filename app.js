@@ -5,6 +5,7 @@ import cors from "cors"
 import bodyParser from "express";
 
 const app = express();
+app.use(cors());
 
 const PORT = 8000;
 
@@ -16,7 +17,6 @@ app.use(bodyParser.json());
 app.use('/api', movieRouter)
 
 
-app.use(cors({ origin: true, credentials: true }));
 
 
 db.connect().then( () => {
