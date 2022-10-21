@@ -107,8 +107,7 @@ class MovieController {
                 return res.status(404).send({message: 'Movie_id not found'})
             }
             let movie = await Movie.findOne({_id: movie_id})
-            // res.header("Access-Control-Allow-Origin", "*");
-            // res.header("Access-Control-Allow-Headers", "X-Requested-With");
+
             return res.status(200).send({
                 status: 'success',
                 message: 'Get movie by Id successfully',
@@ -130,8 +129,6 @@ class MovieController {
             }
             let movie = await Movie.findOneAndDelete({_id: movie_id})
             if (movie) {
-                ` // res.header("Access-Control-Allow-Origin", "*");
-                // res.header("Access-Control-Allow-Headers", "X-Requested-With");`
                 return res.status(200).json({
                     status: 'success',
                     message: 'Movie deleted successfully'
@@ -153,10 +150,15 @@ class MovieController {
             let movie_id = req.params.id;
             let data = {
                 backdrop_path: req.body.backdrop_path,
+                detail_image: req.body.detail_image,
                 original_language: req.body.original_language,
                 original_title: req.body.original_title,
+                overview: req.body.overview,
+                release_date: req.body.release_date,
+                genre: req.body.genre,
+                popularity: req.body.popularity,
                 markIMDB: req.body.markIMDB,
-                video: req.body.video,
+                videoLink: req.body.videoLink,
                 trailer: req.body.trailer,
             }
             if (!mongoose.Types.ObjectId.isValid(movie_id)) {

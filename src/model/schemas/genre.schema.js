@@ -7,3 +7,6 @@ const genreSchema = new Schema(
 )
 const Genre = mongoose.model('Genre',genreSchema)
 export default Genre;
+
+
+
