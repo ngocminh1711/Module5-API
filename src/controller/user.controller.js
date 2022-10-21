@@ -1,14 +1,15 @@
 import User from "../model/schemas/user.schemas.js";
-import Movie from "../model/schemas/movies.schemas.js";
-import Genre from "../model/schemas/genre.schema.js";
+
 import mongoose from "mongoose";
+import City from "../model/schemas/city.schema.js";
+import Movie from "../model/schemas/movies.schemas.js";
 
 
 class UserController {
 
     async getUsers(req, res) {
         try {
-            let users = await User.find()
+            let users = await User.find().populate('city')
             if (!users) {
                 return res.status(404).json({
                     status: 'error',
@@ -51,7 +52,28 @@ class UserController {
         }
 
     }
+    async getUserById(req, res) {
+        try {
+            let user_id = req.params.id;
+            if (!mongoose.Types.ObjectId.isValid(user_id)) {
+                return res.status(404).send({message: 'Movie_id not found'})
+            }
+            let user = await User.findOne({_id: user_id})
 
+            return res.status(200).send({
+                status: 'success',
+                message: 'Get user by Id successfully',
+                user: user
+            })
+        }
+        catch (err) {
+            return res.json({
+                status: 'error',
+                message: 'Error getting user'
+            })
+        }
+
+    }
     async getCities(req, res) {
         try {
             let cities = await City.find()

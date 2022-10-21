@@ -16,6 +16,9 @@ userRouter.get('/', function(req, res, next) {
 userRouter.post('/', function(req, res, next) {
     userController.addUser(req, res).catch(() => res.status(500).json('Server error'))
 })
+userRouter.get('/:id', function(req, res, next) {
+    userController.getUserById(req, res).catch(() => res.status(500).json)
+})
 userRouter.get('/cities', function(req, res, next) {
     userController.getCities(req, res).catch(() => res.status(500).json('Server error'))
 })
