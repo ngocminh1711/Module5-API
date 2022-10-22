@@ -1,12 +1,11 @@
 import express from "express";
 
 import MovieController from "../controller/movie.controller.js";
-import req from "express/lib/request.js";
-import res from "express/lib/response.js";
+
 import multer from 'multer' ;
 const upload = multer()
 const movieRouter = express.Router();
-const movieController = new MovieController()
+const movieController = new MovieController();
 
 movieRouter.get('/movie', async function(req, res) {
    movieController.getMovies(req, res).catch(() => res.status(500).json('Server error') )
