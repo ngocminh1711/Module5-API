@@ -4,6 +4,7 @@ import movieRouter from "./src/routers/movie.router.js";
 import cors from "cors"
 import bodyParser from "express";
 import authRouter from './src/routers/auth.router.js';
+import userRouter from "./src/routers/user.router.js";
 
 const app = express();
 app.use(cors());
@@ -16,6 +17,8 @@ app.use(bodyParser.json());
 
 app.use('/api', movieRouter);
 app.use('', authRouter);
+app.use('/api/user', userRouter )
+
 
 
 db.connect().then( () => {
