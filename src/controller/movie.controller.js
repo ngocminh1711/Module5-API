@@ -3,7 +3,8 @@ import mongoose from "mongoose";
 import Genre from "../model/schemas/genre.schema.js";
 
 
-class MovieController {
+class MovieController {  
+
     async add(req, res) {
         try {
             const data = {
@@ -41,14 +42,15 @@ class MovieController {
     async getMovies(req, res) {
         try {
             let movies = await Movie.find().populate('genre')
-
+            console.log(movies)
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Headers", "X-Requested-With");
             return res.status(200).send({
                 status: 'success',
                 message: 'Get movies successfully',
-                movies: movies
+                movies: movies,
             })
+            
         } catch (err) {
             return res.json({
                 status: 'error',

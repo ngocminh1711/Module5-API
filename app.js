@@ -3,6 +3,7 @@ import  DBconnect  from "./src/model/DBconnect.js";
 import movieRouter from "./src/routers/movie.router.js";
 import cors from "cors"
 import bodyParser from "express";
+import authRouter from './src/routers/auth.router.js';
 import userRouter from "./src/routers/user.router.js";
 
 const app = express();
@@ -14,8 +15,8 @@ const db = new DBconnect();
 app.use(bodyParser.json());
 
 
-
-app.use('/api', movieRouter)
+app.use('/api', movieRouter);
+app.use('', authRouter);
 app.use('/api/user', userRouter )
 
 
@@ -23,10 +24,6 @@ app.use('/api/user', userRouter )
 db.connect().then( () => {
     console.log('DB connected')
 }).catch(err => err.message)
-
-
-
-
 
 
 
