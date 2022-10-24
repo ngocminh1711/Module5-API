@@ -29,14 +29,15 @@ class AuthController {
             })
         }else{
             let payload = {
-                username: user.username
+                username: user.username,
+                admin : user.admin
             }
             secretKey = 'huydo';
-            let token = await jwt.sign(payload, secretKey, {
-                expiresIn : 36000
+            let accesstoken = await jwt.sign(payload, secretKey, {
+                expiresIn :36000 //thoi gian het han: expiresIn
             });
             res.status(200).json({
-                token: token
+                token: accesstoken
             })
         }
     }
