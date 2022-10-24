@@ -1,9 +1,23 @@
 import { model, Schema } from "mongoose";
 
 const userSchema = new Schema({
-    username: String,
-    password: String
-});
+    username: {
+        type: String,
+        require: true,
+        unique: true,
+        minlength:5
+    },
+    password: {
+        type: String,
+        require: true,
+        minlength: 5
+    },
+    admin : {
+        type: Boolean,
+        default: false
+    }
+},{timestamps: true}
+);
 
 const User = model('user', userSchema);
 
