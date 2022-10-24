@@ -24,6 +24,7 @@ class MovieController {
             }
 
             let movie = new Movie(data)
+            console.log(movie)
             await movie.save();
 
             return res.status(200).json({
@@ -124,6 +125,39 @@ class MovieController {
                 message: 'error'
             })
         }
+    }
+    async searchMovie(req, res) {
+        try {
+            let keyword = req.params.keyword;
+            console.log(keyword)
+            let genres = await Genre.find({$or: [{name: {$regex: `${keyword}`, $options: 'i'}}]})
+            let movie = await Movie.find( {$or: [{original_title: {$regex: `${keyword}`, $options: 'i'}},
+                    {original_language: {$regex: `${keyword}`, $options: 'i'}},
+                    { genre : genres }
+                ]}).populate('genre')
+            if (!movie) {
+                return res.status(404).send({
+                    status: 'error',
+                    message: 'Movie not found'
+                })
+            }
+            else {
+
+                return res.status(200).send({
+                    status: 'success',
+                    message: 'Search movie successfully',
+                    movie: movie
+                })
+            }
+        }
+        catch (err) {
+            return res.status(404).send({
+                status: 'error',
+                message: 'Movie not found'
+            })
+        }
+
+
     }
 
     async deleteMovie(req, res) {

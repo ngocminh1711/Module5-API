@@ -30,7 +30,9 @@ movieRouter.get('/genre', async (req, res) => {
 })
 movieRouter.get('/movie/genre/:name', async (req, res) => {
     movieController.getMovieByGenre(req, res).catch(() => res.status(   500).json('Server error'))
-
+})
+movieRouter.get('/movie/search/:keyword', async (req, res) => {
+    movieController.searchMovie(req, res).catch(() => res.status(500).json('Server error'))
 })
 
 
