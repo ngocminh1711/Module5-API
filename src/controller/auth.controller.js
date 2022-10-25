@@ -1,6 +1,9 @@
 import bcrypt from "bcrypt";
+
 import User from "../model/userSchemas/user.js";
 import jwt from 'jsonwebtoken';
+
+module.exports.bcrypt = bcrypt;
 
 export let secretKey;
 
