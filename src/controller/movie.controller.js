@@ -17,7 +17,7 @@ class MovieController {
                 genre: req.body.genre,
                 popularity: req.body.popularity,
                 markIMDB: req.body.markIMDB,
-                videoLink: req.body.videoLink,
+                video: req.body.videoLink,
                 trailer: req.body.trailer,
             }
 
@@ -42,7 +42,6 @@ class MovieController {
     async getMovies(req, res) {
         try {
             let movies = await Movie.find().populate('genre')
-            console.log(movies)
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Headers", "X-Requested-With");
             return res.status(200).send({
@@ -59,6 +58,53 @@ class MovieController {
         }
     }
 
+    async getMovieTopTrending(req, res) {
+        try {
+            console.log(1)
+            let movies = await Movie.find({ markIMDB : { $gte: 6}})
+            console.log(movies)
+            if (movies) {
+                return res.json({
+                    status: 'success',
+                    message: 'get movies successfully',
+                    movies: movies
+                })
+            }
+            else {
+                return res.json({
+                    status: 'error',
+                    message: 'get movies error',
+                })
+            }
+        }
+        catch (err) {
+            return res.json({ status: 'error', message: err.message })
+        }
+    }
+
+    async getMovieTopRated(req, res) {
+        try {
+            let movies = await Movie.find({ popularity : { $gte: 10}})
+            if (movies) {
+                return res.json({
+                    status: 'success',
+                    message: 'get movies successfully',
+                    movies: movies
+                })
+            }
+            else {
+                return res.json({
+                    status: 'error',
+                    message: 'get movies error',
+                })
+            }
+        }
+        catch (err) {
+            return res.json({ status: 'error', message: err.message })
+        }
+
+
+    }
 
 
     async getGenre(req, res) {
@@ -128,7 +174,6 @@ class MovieController {
     async searchMovie(req, res) {
         try {
             let keyword = req.params.keyword;
-            console.log(keyword)
             let genres = await Genre.find({$or: [{name: {$regex: `${keyword}`, $options: 'i'}}]})
             let movie = await Movie.find( {$or: [{original_title: {$regex: `${keyword}`, $options: 'i'}},
                     {original_language: {$regex: `${keyword}`, $options: 'i'}},
