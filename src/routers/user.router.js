@@ -1,11 +1,7 @@
 import express from "express";
 
-import MovieController from "../controller/movie.controller.js";
-import req from "express/lib/request.js";
-import res from "express/lib/response.js";
 import multer from 'multer' ;
 import UserController from "../controller/user.controller.js";
-const upload = multer()
 const userRouter = express.Router();
 const userController = new UserController();
 

@@ -2,7 +2,6 @@ import User from "../model/schemas/user.schemas.js";
 
 import mongoose from "mongoose";
 import City from "../model/schemas/city.schema.js";
-import Movie from "../model/schemas/movies.schemas.js";
 
 
 class UserController {

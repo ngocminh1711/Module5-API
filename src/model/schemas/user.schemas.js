@@ -1,6 +1,6 @@
 
 
-import mongoose , { Schema, model } from "mongoose";
+import mongoose , { Schema } from "mongoose";
 
 const userSchema = new Schema(
     {
