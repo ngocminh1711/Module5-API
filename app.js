@@ -5,17 +5,19 @@ import cors from "cors"
 import bodyParser from "express";
 import authRouter from './src/routers/auth.router.js';
 import userRouter from "./src/routers/user.router.js";
+import AuthMiddleware from './src/middleware/auth.middleware.js';
+
 
 const app = express();
 app.use(cors());
 
 const PORT = 8000;
-
+const authMiddleware = new AuthMiddleware();
 const db = new DBconnect();
 app.use(bodyParser.json());
 
 
-app.use('/api', movieRouter);
+app.use('/api',authMiddleware.verifyToken, movieRouter);
 app.use('', authRouter);
 app.use('/api/user', userRouter )
 
