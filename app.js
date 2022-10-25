@@ -11,7 +11,7 @@ import AuthMiddleware from './src/middleware/auth.middleware.js';
 const app = express();
 app.use(cors());
 
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 const authMiddleware = new AuthMiddleware();
 const db = new DBconnect();
 app.use(bodyParser.json());
@@ -29,6 +29,6 @@ db.connect().then( () => {
 
 
 
-app.listen(8000, function () {
+app.listen(PORT, function () {
     console.log('listening on port ' + PORT);
 });
